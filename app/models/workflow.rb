@@ -71,7 +71,7 @@ class Workflow < ApplicationRecord
   def change_sequences_to_negative(startp, endp, delta)
     query = self.class.where(table[:sequence].gteq(startp))
     query = query.where(table[:sequence].lteq(endp)) if endp
-    query.update_all("sequence = (-sequence + (#{delta}))")
+    query.update_all(["sequence = (-sequence + (?))", delta])
   end
 
   def change_sequences_to_positive(exceptp)
